@@ -1,12 +1,15 @@
-import { useState } from 'react'
 import './App.css'
-import { Footer } from './components/Footer'
-import { MainContainer } from './components/MainContainer'
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+import { Auth } from './components/Auth'
 
 function App() {
   return <div>
-    <MainContainer></MainContainer>
-    <Footer></Footer>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Auth />}></Route>
+      </Routes>   
+    </BrowserRouter>
+
   </div>
 }
 
