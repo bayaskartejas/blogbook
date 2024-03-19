@@ -4,7 +4,7 @@ export function Signin() {
             <input type="text" id="username" placeholder="Email or Username"/><br />
             <input type="password" id="password" placeholder="Password"/><br />
             <button id="login">Log in</button>
-            <div id="line"></div>
+            <div className="line"></div>
             <h3 id="midtext">New to Blogbook ?</h3>
             <button id="newaccount">Create new account</button>
         </form>
