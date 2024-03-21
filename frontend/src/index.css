@@ -574,3 +574,114 @@ option {
 .signupbutton-container {
   text-align: center;
 }
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  height: 56px;
+  position: fixed;
+  top: 0;
+  /* width: 1519.200px; */
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+.logoandsearch {
+  margin-left: 20px;
+  left: 0;
+  position: fixed;
+  width: 307px;
+  height: 56px;
+}
+
+.logo-c {
+  /* margin-left: 16px; */
+  height: max-content;
+  position: fixed;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  width: max-content;
+}
+
+#logo {
+  border-radius: 50%;
+  height: 40px;
+  object-fit: contain;
+}
+
+#logo:hover {
+  cursor: pointer;
+}
+
+.search {
+  width: 240px;
+  height: 40px;
+  position: fixed;
+  display: flex;
+  justify-content: right;
+  top: 7px;
+  /* left: 15px; */
+  background-color: #f0f2f5;
+  border-radius: 50px;
+  margin-left: 50px;
+}
+
+#searchbox {
+  font-weight: normal;
+  width: 212px;
+  height: 40px;
+  padding-top: 7px;
+  padding-right: 8px;
+  padding-bottom: 9px;
+  padding-left: 3px;
+  border: 1px solid transparent;
+  background-color: #f0f2f5;
+  color: #1c1e21;
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 50px ;
+}
+
+#searchbox:focus{
+  outline: none;
+}
+
+.searchicon {
+  margin-left:0px;
+  margin-top: 10px;
+}
+
+.home {
+  align-items: center ;
+  width: 70px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+}
+
+.home:hover {
+  cursor: pointer;
+}
+
+.account-c {
+  display: flex;
+  align-items: center;
+  right: 0;
+  margin-right: 20px;
+  position: fixed;
+  height: 56px;
+  width: 40px;
+  position: fixed;
+}
+
+.account {
+  height: 40px;
+  border-radius: 50px;
+  border: 1px solid #dadde1;
+}
+
+.account:hover {
+  cursor: pointer;
+}
