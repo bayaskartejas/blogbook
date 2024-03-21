@@ -26,80 +26,116 @@ body {
 }
 
 .footer-container {
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  position: fixed;
   bottom: 0px;
-  height: 220.297px;
+  height: 170.297px;
   width: 100%;
-  padding-top: 20px;  
   background-color: #fff;
 }
 
 .footer {
   width: 100%;
-  height: 137.297px;
+  height: 150.297px;
+  position: fixed;
+  bottom: 15px;
+  display: flex;
+  justify-content: center;
 }
 
-.footerIn {
-  margin-left: 462.500px;
-  margin-right: 462.500px;
-  width: 980px;
-  height: 137.297px;
+.footerIn { 
+  display: flex;
+  text-align: center;
+  width: 100%;
+  height: 150.297px;
   color: #737373;
   font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: normal;
   line-height: 15px;
-  word-spacing: 2px;
+  word-spacing: 1px;
+  padding-bottom: 10px;
+}
+
+.linediv {
+  display: flex;
+  justify-content: center;
+  height: 10px;
+  /* border: 1px solid blue; */
+  width: 100%;
+  position: fixed;
+  bottom: 100px;
+}
+
+#line {
+  border-bottom: 1px solid #dadde1;
+  width: 67%;
+  margin-left: 4.9%;
+  position: fixed;
+  bottom: 100px;
+}
+
+.creditfooter {
+  padding-top: 20px;
+  height: 70px;
+  display: inline-block;
+  word-spacing: 5px;
+  text-align: left;
+  margin-left: 26.78%;
+  width: 700px;
 }
 
 .credits {
-  padding-top: 20px;
-  padding-left: 17px;
+  display: inline-block;
 }
 
 .links {
+  padding: 17px;
+  text-align: left;
+  padding-bottom: 17px;
   position: absolute;
-  top: 110px;
+  top: 65px;
   line-height: 0.8;
-  width: 980px;
+  width: 60%;
+  margin-left: 25.7%;
+  height: 50px;
   word-spacing: 1px;
-  padding-left: 17px;
 }
 
 .socials {
   display: inline-block;
+  padding-left: 10px;
 }
 
 .main-container {
   padding-top: 30px;
   padding-bottom: 20px;
-  position: absolute;
-  top: 100px;
-  bottom: 112px;
-  height: 496px;
+  position: fixed;
+  top: 20px;
+  height: 584px;
   width: 100%;
 }
 
 .content-container {
-  margin-left: 462.500px;
-  margin-right: 462.500px;
+  margin-left: 300.500px;
+  margin-right: 300.500px;
   padding-top: 20px;
   padding-bottom: 20px;
-  height: 496px;
-  width: 980px;
+  height: 400px;
+  width: 1000px;
 }
 
-.logotextdiv {
-  padding-right: 32px;
+.logotextdiv { 
   width: 548px;
-  height: 266.068px;
+  height: 280.068px;
 }
 
 .logodiv {
-  padding-bottom: 16px;
-  padding-top: 112px;
-  width: 548px;
-  height: 54.078px;
+  position: relative;
+  right: 465px;
+  width: 548px  ;
+  height: 190.078px;
 }
 
 .logo {
@@ -111,20 +147,12 @@ body {
 }
 
 .slogan {
-  padding-bottom: 0 0 20px;
   width: 500px;
   height: 64px;
   font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
-  font-size: 28px;
+  font-size: 25px;
   font-weight: normal;
-  line-height: 32px;
-}
-
-h2 {
-  margin-block-start: 0.83em;
-  margin-block-end: 0.83em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  line-height: 30px;
 }
 
 .signin-container{
@@ -226,12 +254,11 @@ h3 {
 }
 
 .line {
-  align-items: center;
   border-bottom: 1px solid #dadde1;
-  display: flex;
-  margin: 20px 16px;
+  margin-bottom: 20px;
   text-align: center;
   margin-top: 20px;
+  width: 100%;
 }
 
 #midtext {
@@ -260,28 +287,26 @@ h3 {
 
 /* SignUpPopup.css */
 
-.signup-popup-container {
-  position: relative;
+.popupscreen {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  height: max-content;
 }
 
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.popup-overlay { 
   background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent black overlay */
-  z-index: 1000;
+  z-index: 1000; 
+  height: 100%;
+  width: 100%;
 }
 
 .popup {
   padding-left: 10px;
   padding-right: 10px;
   position: fixed;
-  top: 52.4%;
   width: 448px;
   height: 500.938px;
-  left:49.5%;
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 8px;

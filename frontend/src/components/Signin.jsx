@@ -15,13 +15,13 @@ export function Signin() {
             <input type="text" id="username" placeholder="Email or Username"/><br />
             <input type="password" id="password" placeholder="Password"/><br />
             <button id="login">Log in</button>
-            <div className="line"></div>
+                <div className="line"></div>
             <h3 id="midtext">New to Blogbook ?</h3>
             <button id="newaccount" onClick={togglePopup}>Create new account</button>
         </form>
 
         {showPopup && (
-        <div>
+        <div className="popupscreen">
           <div className="popup-overlay" onClick={handleOverlayClick}></div>
           <div className="popup">
             <div className="popup-content">
