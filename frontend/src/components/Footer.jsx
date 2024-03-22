@@ -7,7 +7,7 @@ export function Footer(){
                         <div className="credits">This Project is created by :</div> <div className="credits">Tejas Bayaskar | Anjali Bamnote | Adesh Wasane</div>
                         <div >
                         <div  className="credits">These are the dependencies of our Project:</div>
-                        <div className="credits">Express | Cors | Jsonwebtoken | Body-parser | Mongoose | Zod | React | React-router-dom</div>
+                        <div className="credits" style={{marginLeft:"7px"}}>Express | Cors | Jsonwebtoken | Body-parser | Mongoose | Zod | React | React-router-dom</div>
                         </div>
                     </div>
 

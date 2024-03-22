@@ -23,6 +23,9 @@ body {
   background-color: #f0f2f5;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;
+  color: #1c1e21;
+  direction: ltr;
+  line-height: 1.34;
 }
 
 .footer-container {
@@ -703,6 +706,10 @@ option {
   font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
   border-radius: 8px;
+  padding-top: 12px;
+  padding-bottom: 10px;
+  padding-left: 16px;
+  padding-right: 16px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
 }
 
@@ -712,13 +719,6 @@ option {
   display: flex;
   justify-content:center;
   align-items: center;
-}
-
-.createpost {
-  padding-top: 12px;
-  padding-bottom: 10px;
-  padding-left: 16px;
-  padding-right: 16px;
 }
   
 .pfpandpost {
@@ -740,6 +740,13 @@ input:focus{
 
 .pfp:hover{
   cursor: pointer;
+}
+
+.postbox-c {
+  height: 40px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .postbox {
@@ -782,4 +789,224 @@ input:focus{
 .postbutton:hover {
   cursor: pointer;
   background: #1877F2;
+}
+
+.homepage {
+  height: max-content;
+  width: 100%;
+  border: 2px solid green;
+  display: flex;
+  justify-content: center;
+}
+
+.feed {
+  width: 500px;
+  height: max-content;
+  /* border: 1px solid black; */
+  display: block;
+  unicode-bidi: isolate;
+}
+
+.post-c {
+  width: 100%;
+  height: max-content;
+  /* border: 2px solid red; */
+  margin-top: 16px;
+  position: relative;
+  z-index: 0;
+}
+
+.post {
+  height: max-content ;
+  font-size: 12px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+  border-radius: 8px;
+  background-color: #fff;
+  color: #1c1e21;
+}
+
+.pfpandname {
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  height: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  margin-bottom: 12px;
+}
+
+.nameandtime {
+  /* border: 1px solid black; */
+  width: 384px;
+  height: 33.99px;
+  margin-left: 2%;
+}
+
+.name {
+  /* border: 1px solid black; */
+  width: 384px;
+  height: 19.99px;
+  margin-top: 2px;
+}
+
+.time {
+  width: 384px;
+  height: 16px;   
+  margin-bottom: 5px;
+
+}
+
+.menubutton-c {
+  /* border: 1px solid black; */
+  height: 36px;
+  width: 36px;
+  padding:8px
+}
+
+.menubutton {
+  height: 20px;
+  width: 20px;
+}
+
+.menubutton:hover {
+  cursor: pointer;
+}
+
+.blogtext-c {
+  width: 500px;
+  margin-top: 15px;
+  height: max-content;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 15px;
+}
+
+.blogtext {
+  width: 468px;
+  height: max-content;
+  line-height: 1.1667;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.likeandcomment-c {
+  width: 500px;
+  height: 52px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.likeandcomment {
+  width: 480px;
+  height: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.cmnt-c{
+  width: 500px;
+  height: 52.9px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.cmnt {
+  display: flex;
+  width: 468px;
+  height: 48.1px;
+  padding-top: 4px;
+  padding-bottom: 8px;
+}
+
+.likebutton {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yW/r/iXiEGoxedPs.png"); 
+  background-position: 0px -795px; 
+  background-size: 26px 1500px; 
+  width: 20px; 
+  height: 20px; 
+  background-repeat: no-repeat; 
+  display: inline-block;
+}
+
+
+.like {
+  display: flex;  
+  width: max-content;
+  height: max-content;
+}
+
+.like:hover{
+  cursor: pointer;
+}
+
+.liketext-c {
+  margin-left: 5px;
+  width: 30px;
+  height: 20px;
+}
+
+.liketext {
+  width: 26.837px; 
+  height: 10.988px;
+  font-weight: 600;
+  font-size: .9375rem;
+  color: #65676b;
+}
+
+.comment {
+  display: flex;  
+  width: max-content;
+  height: max-content;
+}
+
+.comment:hover {
+  cursor: pointer;
+}
+
+.commentbutton {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yW/r/iXiEGoxedPs.png"); 
+  background-position: 0px -576px; 
+  background-size: 26px 1500px; 
+  width: 20px; 
+  height: 20px; 
+  background-repeat: no-repeat; 
+  display: inline-block;
+}
+
+
+.commenttext-c {
+  margin-left: 5px;
+  width: 70px;
+  height: 20px;
+}
+
+.commenttext {
+  width: 26.837px; 
+  height: 10.988px;
+  font-weight: 600;
+  font-size: .9375rem;
+  color: #65676b;
+}
+
+.cmnt-send {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yW/r/iXiEGoxedPs.png"); 
+  background-position: 0px -1309px; 
+  background-size: 26px 1500px; 
+  width: 20px; 
+  height: 20px; 
+  background-repeat: no-repeat; 
+  display: inline-block;
+  margin-top: 8px;
+  margin-right: 10px;
+}
+
+.cmnt-send:hover {
+  cursor: pointer;
 }
