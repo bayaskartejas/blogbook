@@ -3,6 +3,29 @@
   box-sizing: border-box;
 }
 
+
+/* @media screen and (max-width: 768px) {
+  .logotextdiv{
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logotextdiv {
+    height: 100px;
+  }
+} */
+
+@media screen and (max-width: 768px) {
+  .content-container {
+    padding: 10px;
+  }
+
+  .signin-footer {
+    display: none; /* Hide the footer on smaller screens */
+  }
+}
+
 div {
   display: block;
 }
@@ -33,76 +56,77 @@ body {
   justify-content: center;
   position: fixed;
   bottom: 0px;
-  height: 170.297px;
+  height: 125.297px;
   width: 100%;
   background-color: #fff;
-  z-index: -1;
+  /* z-index: -1; */
 }
 
 .footer {
   width: 100%;
-  height: 150.297px;
+  height: 125.297px;
   position: fixed;
-  bottom: 15px;
   display: flex;
   justify-content: center;
 }
 
 .footerIn { 
+  justify-content: center;
   display: flex;
   text-align: center;
   width: 100%;
-  height: 150.297px;
+  height: 125.297px;
   color: #737373;
   font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-weight: normal;
   line-height: 15px;
   word-spacing: 1px;
-  padding-bottom: 10px;
+  z-index: 1;
 }
 
-.linediv {
+.linediv {  
+
+  height: 125.297px;
   display: flex;
   justify-content: center;
-  height: 10px;
+  align-items: center;
   /* border: 1px solid blue; */
   width: 100%;
-  position: fixed;
-  bottom: 100px;
+  position: absolute;
+  padding-bottom: 12px;
 }
 
 #line {
   border-bottom: 1px solid #dadde1;
   width: 67%;
-  margin-left: 4.9%;
-  position: fixed;
-  bottom: 100px;
 }
 
 .creditfooter {
-  padding-top: 20px;
-  height: 70px;
+  display: flex;
+  padding-top: 15px;
+  justify-content: center;
+  height: 50px;
   display: inline-block;
   word-spacing: 5px;
   text-align: left;
-  margin-left: 26.78%;
-  width: 700px;
+  /* margin-left: 26.78%; */
+  width: 750px;
 }
 
 .credits {
   display: inline-block;
+  line-height: 0.8;
 }
 
 .links {
   padding: 17px;
   text-align: left;
-  padding-bottom: 17px;
   position: absolute;
-  top: 65px;
+  left: 24.5%;
+  top: 55px;
   line-height: 0.8;
-  width: 60%;
-  margin-left: 25.7%;
+  width: 54%;
   height: 50px;
   word-spacing: 1px;
 }
@@ -113,20 +137,28 @@ body {
 }
 
 .main-container {
-  padding-top: 30px;
-  padding-bottom: 20px;
-  position: fixed;
-  top: 20px;
-  height: 584px;
+  /* padding-top: 30px;
+  padding-bottom: 20px; */
+  /* position: fixed; */
+  /* top: 20px; */
+  height: 608px;
   width: 100%;
+  ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content-container {
-  margin-left: 300.500px;
-  margin-right: 300.500px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ;
+  /* margin-left: 300.500px;
+  margin-right: 300.500px; */
+  /* padding-top: 20px;
+  padding-bottom: 20px; */
+  height: 500px;
   width: 1000px;
 }
 
@@ -135,22 +167,24 @@ body {
   height: 280.068px;
 }
 
-.logodiv {
+/* .logodiv {
   position: relative;
   right: 465px;
   width: 548px  ;
   height: 190.078px;
-}
+} */
 
 .logo {
   height: 180px;
-  margin: -28px;
+  /* margin: -28px;
   position: absolute;
   top: 85px;
-  left: 472px;
+  left: 472px; */
+  ;
 }
 
 .slogan {
+  padding-left: 20px;
   width: 500px;
   height: 64px;
   font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
@@ -159,27 +193,22 @@ body {
   line-height: 30px;
 }
 
-.signin-container{
-  width: 396px;
+/* .signin-container{
+  width: 500px;
   height: 496px;
   margin-left: 583px;
-  position: absolute;
-  top: 70px;
-}
+  ;
+} */
 
 .signin-in {
-  height: 456px;
+  height: 391.578px;
   width: 396px;
-  margin-top: 39px;
+  ;
 }
 
 .signin-form {
-  margin-top: 40px;
-  position: absolute;
-  bottom: 180px;
-  padding-top: 20px;
+  padding-top: 20px ;
   background-color: #fff;
-  padding-bottom: 24px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
   height: 350.828px;
   width: 396px;
@@ -190,9 +219,7 @@ body {
   width: 396px;
   text-align: center;
   height: 18.750px;
-  margin-top: 28px;
-  position: absolute;
-  top: 313px;
+  padding-top: 20px;
 }
 
 h3 {
@@ -291,9 +318,7 @@ h3 {
 
 /* SignUpPopup.css */
 
-.popupscreen {
-  display: flex;
-  justify-content: center;
+.screen {
   height: 100%;
   width: 100%;
 }
@@ -304,15 +329,19 @@ h3 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.8);; /* Semi-transparent black overlay */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent black overlay */
   z-index: 1000;
 }
 
 .popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
   position: fixed;
-  left: 780px;
+  left: 770px;
+  top: 350px;
   width: 448px;
   height: 500.938px;
   transform: translate(-50%, -50%);
@@ -590,6 +619,7 @@ option {
   width: 100%;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  z-index: 1;
 }
 
 .logoandsearch {
@@ -794,7 +824,7 @@ input:focus{
 .homepage {
   height: max-content;
   width: 100%;
-  border: 2px solid green;
+  /* border: 2px solid green; */
   display: flex;
   justify-content: center;
 }
@@ -802,7 +832,7 @@ input:focus{
 .feed {
   width: 500px;
   height: max-content;
-  /* border: 1px solid black; */
+  /* ; */
   display: block;
   unicode-bidi: isolate;
 }
@@ -813,7 +843,6 @@ input:focus{
   /* border: 2px solid red; */
   margin-top: 16px;
   position: relative;
-  z-index: 0;
 }
 
 .post {
@@ -826,7 +855,7 @@ input:focus{
 }
 
 .pfpandname {
-  /* border: 1px solid black; */
+  /* ; */
   display: flex;
   justify-content: space-between;
   width: 500px;
@@ -838,14 +867,14 @@ input:focus{
 }
 
 .nameandtime {
-  /* border: 1px solid black; */
+  /* ; */
   width: 384px;
   height: 33.99px;
   margin-left: 2%;
 }
 
 .name {
-  /* border: 1px solid black; */
+  /* ; */
   width: 384px;
   height: 19.99px;
   margin-top: 2px;
@@ -859,7 +888,7 @@ input:focus{
 }
 
 .menubutton-c {
-  /* border: 1px solid black; */
+  /* ; */
   height: 36px;
   width: 36px;
   padding:8px
@@ -1010,3 +1039,4 @@ input:focus{
 .cmnt-send:hover {
   cursor: pointer;
 }
+

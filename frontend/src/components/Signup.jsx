@@ -1,20 +1,58 @@
+import axios from "axios"
+import { useRef, useState } from "react"
 export function Signup({setShowPopup}) {
-    return <div className="signupcard">
+    const [otpPage, setOtpPage] = useState(false)
+    const firstNameRef = useRef()
+    const lastNameRef = useRef()
+    const usernameRef = useRef()
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const dayRef = useRef()
+    const monthRef = useRef()
+    const yearRef = useRef()
+    const genderRef = useRef()
+
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        axios.post("http://localhost:3000/signup", {
+            firstName: firstNameRef.current.value,
+            lastName: lastNameRef.current.value,
+            username: usernameRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            day: parseInt(dayRef.current.value),
+            month: parseInt(monthRef.current.value),
+            year: parseInt(yearRef.current.value),
+            gender: genderRef.current.querySelector('input:checked').id
+        })
+        .then((res)=>{
+            alert(res.data);
+            setOtpPage(true)
+        })
+        .catch((e)=>{
+            alert("Choose Proper Inputs")
+        })
+    }
+
+    return <div>
+        {otpPage ? <>
+            <h1 style={{fontWeight: "600", fontSize:"32px", lineHeight:"38px", paddingLeft:"10px"}}>Enter OTP sent to your email:</h1>
+        </> : <div className="signupcard">
         <h1 style={{fontWeight: "600", fontSize:"32px", lineHeight:"38px", paddingLeft:"10px"}}>Sign Up</h1>
         <h3 style={{color: "#606770", fontFamily: "SFProText-Regular, Helvetica, Arial, sans-serif",fontSize: "15px", lineHeight: "24px", paddingLeft:"10px"}}>It's quick and easy.</h3>
         <img onClick={()=>{
             setShowPopup(false)
         }} className="closeIcon" src="https://static.xx.fbcdn.net/rsrc.php/v3/yO/r/zgulV2zGm8t.png" alt width={24} height={24}/>
         <div className="signup-line"></div>
-        <form className="signup" action="">
-            <input type="text" id="fName" placeholder="First name"/> 
-            <input type="text" id="surname" placeholder="Surname"/><br />
-            <input type="text" id="uname" placeholder="New Username"/><br />
-            <input type="text" id="email" placeholder="Email"/><br />
-            <input type="password" id="pword"placeholder="New Password"/><br />
+        <form className="signup" onSubmit={handleSubmit} action="">
+            <input type="text" id="fName" placeholder="First name" ref={firstNameRef} required/> 
+            <input type="text" id="surname" placeholder="Surname" ref={lastNameRef} required/><br />
+            <input type="text" id="uname" placeholder="New Username" ref={usernameRef} required/><br />
+            <input type="text" id="email" placeholder="Email" ref={emailRef} required/><br />
+            <input type="password" id="pword"placeholder="New Password" ref={passwordRef} required/><br />
             <h3 className="dob">Date of birth</h3>
             <div style={{marginBottom:"10px"}}>
-            <select aria-label="Day" name="day" id="day" >
+            <select aria-label="Day" name="day" id="day" ref={dayRef} required>
                 <option value="Day">Day</option>
                 <option value="01">01</option>
                 <option value="02">02</option>
@@ -48,7 +86,7 @@ export function Signup({setShowPopup}) {
                 <option value="30">30</option>
                 <option value="31">31</option>
             </select>
-            <select aria-label="Month" name="month" id="month" >
+            <select aria-label="Month" name="month" id="month" ref={monthRef} required>
                 <option value="Month">Month</option>
                 <option value="01">January</option>
                 <option value="02">February</option>
@@ -63,7 +101,7 @@ export function Signup({setShowPopup}) {
                 <option value="11">November</option>
                 <option value="12">December</option>
             </select>
-            <select aria-label="Year" name="year" id="year" >
+            <select aria-label="Year" name="year" id="year" ref={yearRef} required>
                 <option value="Year">Year</option>
                 <option value="2012">2012</option>
                 <option value="2011">2011</option>
@@ -181,22 +219,23 @@ export function Signup({setShowPopup}) {
             </div>
 
             <h3 className="dob">Gender</h3>
-            <div className="gender" datatype="radio">
+            <div className="gender" datatype="radio" ref={genderRef} required>
             <div id="malediv">
                 <label htmlFor="male" className="label">Male</label>
-                <input type="radio" name="gender" id="male" />                
+                <input type="radio" name="gender" id="male" required/>                
             </div>
             <div id="femalediv">
                 <label htmlFor="female" className="label">Female</label>
-                <input type="radio" name="gender" id="female" />                
+                <input type="radio" name="gender" id="female" required/>                
             </div>                
             </div>
             <div className="signupbutton-container">
-                <button className="signupbutton">Sign Up</button>
+                <button className="signupbutton"  type="submit">Sign Up</button>
             </div>
 
 
         </form>
 
+    </div>}
     </div>
 }
