@@ -1,7 +1,11 @@
 import axios from "axios"
 import { useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 export function Signup({setShowPopup}) {
+
+    
     const [otpPage, setOtpPage] = useState(false)
+    const [newOtp, setNewOtp] = useState("0")
     const firstNameRef = useRef()
     const lastNameRef = useRef()
     const usernameRef = useRef()
@@ -11,10 +15,11 @@ export function Signup({setShowPopup}) {
     const monthRef = useRef()
     const yearRef = useRef()
     const genderRef = useRef()
+    const otpRef = useRef()
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e)=>{ 
         e.preventDefault();
-        axios.post("http://localhost:3000/signup", {
+        axios.post("http://localhost:3000/otp", {
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
             username: usernameRef.current.value,
@@ -26,17 +31,39 @@ export function Signup({setShowPopup}) {
             gender: genderRef.current.querySelector('input:checked').id
         })
         .then((res)=>{
-            alert(res.data);
-            setOtpPage(true)
+            setNewOtp(res.data.otp)
+            setOtpPage(true)            
         })
         .catch((e)=>{
-            alert("Choose Proper Inputs")
+            alert(e.response.data.msg);
         })
     }
 
     return <div>
         {otpPage ? <>
-            <h1 style={{fontWeight: "600", fontSize:"32px", lineHeight:"38px", paddingLeft:"10px"}}>Enter OTP sent to your email:</h1>
+            <h1 style={{fontWeight: "600", fontSize:"20px", lineHeight:"38px", paddingLeft:"10px"}}>Enter the OTP:</h1>
+            <h3 style={{color: "#606770", fontFamily: "SFProText-Regular, Helvetica, Arial, sans-serif",fontSize: "15px", lineHeight: "24px", paddingLeft:"10px"}}>It is sent to your email address.</h3>
+            <form onSubmit={(e)=>{
+                if(otpRef.current.value === newOtp){
+                    axios.post("http://localhost:3000/newuser",{
+                        id: "",
+                        password: "",
+                    })
+                    .then((res)=>{  
+                        alert("Account created successfully")
+                    })
+                    .catch((e)=>{
+                        alert(e)
+                    })
+                }
+                else{
+                    alert("Wrong OTP!")
+                    e.preventDefault()
+                }
+            }} action="" style={{paddingLeft:"10px"}}>
+                <input type="text" id="email" placeholder="OTP"  ref={otpRef} required/><br />
+                <button type="submit" className="signupbutton">Submit</button>
+            </form>
         </> : <div className="signupcard">
         <h1 style={{fontWeight: "600", fontSize:"32px", lineHeight:"38px", paddingLeft:"10px"}}>Sign Up</h1>
         <h3 style={{color: "#606770", fontFamily: "SFProText-Regular, Helvetica, Arial, sans-serif",fontSize: "15px", lineHeight: "24px", paddingLeft:"10px"}}>It's quick and easy.</h3>

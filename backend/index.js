@@ -5,13 +5,17 @@ const jwt = require("jsonwebtoken")
 const bodyParser = require("body-parser")
 const cors = require("cors")
 const zod = require("zod")
+const otpGenerator = require("otp-generator")
+const nodemailer = require("nodemailer")
 
 const app = express()
 app.use(express.json())
 app.use(bodyParser.json())
 app.use(cors())
 
-app.post("/signup", async (req,res)=>{
+let newUser;
+
+app.post("/otp", async (req,res)=>{
     let existCheck1 = await User.exists({
         username: req.body.username
     })
@@ -21,8 +25,8 @@ app.post("/signup", async (req,res)=>{
 
     if(existCheck1 == null && existCheck2 == null){
         if(inputSchema.safeParse(req.body).success){
-            if(req.body.day !== "Day" && req.body.month !== "Month" && req.body.year !== "Year"){
-                const newUser = new User({
+            if(req.body.day != "Day" && req.body.month != "Month" && req.body.year != "Year"){
+                newUser = new User({
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     username: req.body.username,
@@ -35,10 +39,30 @@ app.post("/signup", async (req,res)=>{
                     posts: [],
                     savedPosts: []
                 })
-                newUser.save().then((data)=>{
-                    res.status(200).json({
-                        data
-                    })
+
+                const otp = otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false});
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'blogbookorg@gmail.com',
+                        pass: 'fnfbokmdxulxpoza'
+                    }
+                });
+                const mailOptions = {
+                    from: 'blogbookorg@gmail.com',
+                    to: req.body.email,
+                    subject: 'OTP Verification',
+                    text: `Hello, this is Tejas from Blogbook ©, your OTP for verification is: ${otp}`
+                };
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.error('Error sending email:', error);
+                    } else {
+                        console.log('Email sent:', info.response);
+                    }
+                });
+                res.status(200).json({
+                    otp: otp
                 })
             }else{
                 res.status(404).json({
@@ -59,7 +83,10 @@ app.post("/signup", async (req,res)=>{
     }
 })
 
-
+app.post("/newuser", async(req,res)=>{
+    let data = await newUser.save()
+    res.status(200).json({data})
+})
 
 app.post("/signin", async(req,res)=>{   
     let exist;
@@ -214,5 +241,6 @@ app.post("/post", authMiddleware, async (req,res)=>{
         })
     }
 })
+
 
 app.listen("3000")
