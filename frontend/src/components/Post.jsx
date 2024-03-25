@@ -12,7 +12,6 @@ export function Post(){
     .then((response) => {
       const res = response.data;
       setPosts(res)
-      posts.reverse();
     })
     .catch((e)=>{
       alert(e)
@@ -27,10 +26,10 @@ export function Post(){
                 <div className="pfpandname">
                   <img src={person} alt="" className="pfp"/>
                   <div className="nameandtime">
-                    <div id={thePost._id + "def"} className="name"><strong style={{fontWeight:"600" , fontSize:".9375rem", fontFamily:"Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif", lineHeight:"1.3333", wordBreak:"break-word"}}>{thePost.name}</strong></div>
-                    <div id={thePost._id + "ghi"} className="time" style={{fontFamily:"Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif", fontWeight:"400", lineHeight:"1.2308", fontSize:".8125rem", color:"gray"}}>{thePost.time}</div>
+                    <div id={thePost._id + "name"} className="name"><strong style={{fontWeight:"600" , fontSize:".9375rem", fontFamily:"Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif", lineHeight:"1.3333", wordBreak:"break-word"}}>{thePost.name}</strong></div>
+                    <div id={thePost._id + "time"} className="time" style={{fontFamily:"Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif", fontWeight:"400", lineHeight:"1.2308", fontSize:".8125rem", color:"gray"}}>{thePost.time}</div>
                   </div>
-                  <div className="menubutton-c">
+                  <div id={thePost._id + "menu"} className="menubutton-c">
                     <div className="menubutton">
                     <svg viewBox="0 0 20 20" width="20" height="20" fill="currentColor" className="x19dipnz x1lliihq x1k90msu x2h7rmj x1qfuztq" style={{ '--color': 'var(--secondary-icon)' }}>
                       <g fillRule="evenodd" transform="translate(-446 -350)">

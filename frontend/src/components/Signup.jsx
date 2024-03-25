@@ -2,7 +2,7 @@ import axios from "axios"
 import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 export function Signup({setShowPopup}) {
-
+    const navigate = useNavigate()
     
     const [otpPage, setOtpPage] = useState(false)
     const [newOtp, setNewOtp] = useState("0")
@@ -51,6 +51,7 @@ export function Signup({setShowPopup}) {
                     })
                     .then((res)=>{  
                         alert("Account created successfully")
+                        navigate("/pfp")
                     })
                     .catch((e)=>{
                         alert(e)

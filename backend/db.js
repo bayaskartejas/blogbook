@@ -34,7 +34,8 @@ const userSchema = mongoose.Schema({
     year: Number,
     gender: String,  
     posts: Array,
-    savedPosts: Array
+    savedPosts: Array,
+    pfp: String
 })
 
 const User = mongoose.model("User", userSchema)

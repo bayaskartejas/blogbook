@@ -27,7 +27,7 @@ export function Signin() {
         sessionStorage.setItem("token", token) 
       })
       .catch((e)=>{
-          alert("error")
+        alert("User does not exist.")
       })
     }  
     return <div className="signincard">

@@ -37,7 +37,8 @@ app.post("/otp", async (req,res)=>{
                     year: req.body.year,
                     gender: req.body.gender,  
                     posts: [],
-                    savedPosts: []
+                    savedPosts: [],
+                    pfp: ""
                 })
 
                 const otp = otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false});
