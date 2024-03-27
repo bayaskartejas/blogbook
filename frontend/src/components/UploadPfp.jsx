@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Header from "./Header"
 export function UploadPfp(){
     const [image, setImage] = useState("")
     function convertToBase64(e){

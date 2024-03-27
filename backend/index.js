@@ -243,5 +243,74 @@ app.post("/post", authMiddleware, async (req,res)=>{
     }
 })
 
+app.get("/isSaved", authMiddleware, async (req,res)=>{
+    const token = req.headers.authorization
+    let decoded = jwt.decode(token)
+
+    if(zod.string().email().safeParse(decoded.id).success){
+        let user = await User.find({email: decoded.id})
+        res.status(200).json(user)
+    }
+    else{
+        let user = await User.find({username: decoded.id})
+        res.status(200).json(user)
+    }
+})
+
+app.post("/savePost", authMiddleware, async (req, res)=>{
+    const token = req.headers.authorization
+    let decoded = jwt.decode(token)
+    let email = false
+    let username = false
+    let id = req.body.id
+    
+    if(zod.string().email().safeParse(decoded.id).success){
+        email=true
+    }
+    else{
+        username=true
+    }
+
+    if(email){   
+        let response = await User.updateOne(
+            {"email": decoded.id},
+            {$push: {savedPosts: id}}
+        )
+        res.status(200).json({response})
+
+    }
+    else if(username){  
+        let response = await User.updateOne(
+            {"username": decoded.id},
+            {$push: {savedPosts: id}}
+        )
+        res.status(200).json({response})
+    }
+})
+
+app.post("/unsavePost", authMiddleware, async (req, res)=>{
+    const token = req.headers.authorization
+    let decoded = jwt.decode(token)
+    let email = false
+    let username = false
+    let id = req.body.id
+    
+    if(zod.string().email().safeParse(decoded.id).success){
+        email=true
+    }
+    else{
+        username=true
+    }
+
+    if(email){   
+        let data = await User.findOneAndUpdate({"email": decoded.id}, {$pull: {savedPosts: req.body.id}})
+        res.status(200).json(req.body.id);
+    }
+
+    else if(username){  
+        let data = await User.findOneAndUpdate({"username": decoded.id}, {$pull: {savedPosts: req.body.id}})
+        res.status(200).json(req.body.id);
+    }
+})
 
 app.listen("3000")
