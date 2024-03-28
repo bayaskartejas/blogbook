@@ -105,7 +105,18 @@ app.post("/signin", async(req,res)=>{
     }
     if(exist != null){
         let token = jwt.sign({id: req.body.id}, secretKey)
-        res.status(200).json({token})
+        if(zod.string().email().safeParse(req.body.id).success){
+            let user = await User.find({email: req.body.id})
+            let username = user[0].username
+            let email = req.body.id
+            res.status(200).json({token: token, email: email, username: username})
+        }
+        else{
+            let user = await User.find({username: req.body.id})
+            let email = user[0].email
+            let username = req.body.id
+            res.status(200).json({token: token, email: email, username: username})
+        }
     }
     else{
         res.status(404).json({
@@ -310,6 +321,53 @@ app.post("/unsavePost", authMiddleware, async (req, res)=>{
     else if(username){  
         let data = await User.findOneAndUpdate({"username": decoded.id}, {$pull: {savedPosts: req.body.id}})
         res.status(200).json(req.body.id);
+    }
+})
+
+app.post("/liked", async (req,res)=>{
+    const token = req.headers.authorization
+    let decoded = jwt.decode(token)
+    let postId = req.body.id
+
+    if(zod.string().email().safeParse(decoded.id).success){
+        let user = await User.find({email:decoded.id})
+        let username = user[0].username
+        let response = await Post.updateOne(
+            {"_id": postId},
+            {$push: {likes: username}}
+        )
+        res.status(200).json({response})
+    }
+    else{
+        let response = await Post.updateOne(
+            {"_id": postId},
+            {$push: {likes: decoded.id}}
+        )
+        res.status(200).json({response})
+    }
+})
+
+app.post("/unliked", async (req,res)=>{
+    const token = req.headers.authorization
+    let decoded = jwt.decode(token)
+    let postId = req.body.id
+    
+
+    if(zod.string().email().safeParse(decoded.id).success){
+        let user = await User.find({email:decoded.id})
+        let username = user[0].username
+        let response = await Post.updateOne(
+            {"_id": postId},
+            {$pull: {likes: username}}
+        )
+        res.status(200).json({response})
+    }
+    else{
+        let response = await Post.updateOne(
+            {"_id": postId},
+            {$pull: {likes: decoded.id}}
+        )
+        res.status(200).json({response})
     }
 })
 

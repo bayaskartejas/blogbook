@@ -23,11 +23,12 @@ export function Signin() {
       })
       .then((res)=>{  
         navigate("/home")
-        const token = res.data.token;
-        sessionStorage.setItem("token", token) 
+        sessionStorage.setItem("token", res.data.token) 
+        sessionStorage.setItem("username", res.data.username)
+        sessionStorage.setItem("email", res.data.email)
       })
       .catch((e)=>{
-        alert("User does not exist.")
+        alert(e)
       })
     }  
     return <div className="signincard">

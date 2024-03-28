@@ -6,6 +6,9 @@ export function Post(){
   const [savedPosts, setSavedPosts] = useState({})
   const [isSaved, setIsSaved] = useState(true)
   const [isUserPost, setIsUserPost] = useState(true)
+  const [likeLog, setLikeLog] = useState({})
+  const [likeCountLog, setLikeCountLog] = useState({})
+  const [commentCountLog, setCommentCountLog] = useState({})
 
   let arr =[];
   useEffect(()=>{
@@ -17,6 +20,14 @@ export function Post(){
     .then((response) => {
       const res = response.data;
       setPosts(res)
+      res[0].map((post)=>{
+        setLikeCountLog((prevState=>({...prevState, [post._id]:post.likes.length})))
+        setCommentCountLog((prevState=>({...prevState, [post._id]:post.comments.length})))
+        console.log(post.likes);
+        let exist = post.likes.find(ind => ind === sessionStorage.getItem("username"))
+        exist ? setLikeLog((prevState=>({...prevState, [post._id]:true}))) : setLikeLog((prevState=>({...prevState, [post._id]:false})))
+      })
+
     })
     .catch((e)=>{
       alert(e)
@@ -110,15 +121,58 @@ export function Post(){
                   <div className="line" style={{width:"470px", margin:0}}></div>
                 </div>
 
+                <div style={{height:"40px", border:"1px solid black", display:"flex", justifyContent:"space-between", alignItems:"center", paddingLeft:"20px", paddingRight:"20px"}}>
+                      <div style={{width:"50px", border:"1px solid black", height:"20px", display:"flex", justifyContent:"space-between", padding:"0px 5px", alignItems:"center"}}>
+                        <i className="likeicon"></i>
+                        <div className="likecount" style={{fontSize:14}}>{likeCountLog[thePost._id]}</div>
+                      </div>
+                      <div style={{width:"50px", border:"1px solid black", height:"20px", display:"flex", justifyContent:"space-between", padding:"0px 5px", alignItems:"center"}}>
+                        <i className="commenticon"></i>
+                        <div className="commentcount" style={{fontSize:14}}>{commentCountLog[thePost._id]}</div>
+                      </div>
+                </div>
+                
                 <div className="likeandcomment-c">
                   <div className="likeandcomment">
-                    <div className="like" style={{width:"150px", height:"44px", display:"flex", justifyContent:"center", alignItems:"center", borderRadius:"7px"}}>
-                      <i className="likebuttontrue"></i>
-                      <div className="liketext-c">
-                        <div className="liketexttrue">Like</div>
-                      </div>
-
-                    </div>
+                      {likeLog[thePost._id] ?                     
+                          <div className="like" style={{width:"150px", height:"44px", display:"flex", justifyContent:"center", alignItems:"center", borderRadius:"7px"}}
+                          onClick={()=>{
+                            axios.post("http://localhost:3000/unliked",{
+                              id : thePost._id
+                            },{
+                              headers:{
+                                "Authorization":sessionStorage.getItem("token")
+                              }
+                            })
+                            .then((res)=>{
+                              setLikeLog((prevState=>({...prevState, [thePost._id]:false})))
+                            })
+                            .catch((e)=>{alert(e);})
+      
+                          }}>
+                          <i className= "likebuttontrue"></i>
+                          <div className="liketext-c">
+                            <div className="liketexttrue">Like</div>
+                          </div>
+                        </div> : 
+                            <div className="like" style={{width:"150px", height:"44px", display:"flex", justifyContent:"center", alignItems:"center", borderRadius:"7px"}}
+                            onClick={()=>{
+                              axios.post("http://localhost:3000/liked",{
+                                id : thePost._id
+                              },{
+                                headers:{
+                                  "Authorization":sessionStorage.getItem("token")
+                                }
+                              })
+                              .then((res)=>{setLikeLog((prevState=>({...prevState, [thePost._id]:true})))})
+                              .catch((e)=>{alert(e);})
+        
+                            }}>
+                            <i className= "likebuttonfalse"></i>
+                            <div className="liketext-c">
+                              <div className="liketextfalse">Like</div>
+                            </div>
+                          </div>}
                     <div className="comment" style={{width:"150px", height:"44px", display:"flex", justifyContent:"center", alignItems:"center", borderRadius:"7px"}}>
                       <i className="commentbutton"></i>
                       <div className="commenttext-c">

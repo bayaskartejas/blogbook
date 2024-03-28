@@ -919,6 +919,8 @@ input:focus{
   padding-left: 16px;
   padding-right: 16px;
   margin-bottom: 15px;
+  text-align: start;
+  word-wrap: break-word;
 }
 
 .blogtext {
@@ -1135,4 +1137,38 @@ input:focus{
 .deletebutton:hover {
   cursor: pointer;
   background-color: #dadde1;
+}
+
+.likeicon {
+  background-image: url("../src/assets/icons.png"); 
+  background-position: 2px -683.1px; 
+  background-size: 18px 1038px; 
+  width: 18px; 
+  height: 18px; 
+  background-repeat: no-repeat; 
+  display: inline-block;
+  border-radius: 50%;
+  border: 1.5px solid #0866ff;
+}
+
+.likecount:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.commentcount:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.commenticon {
+  background-image: url("../src/assets/icons.png"); 
+  background-position: 2px -655px; 
+  background-size: 18px 1038px; 
+  width: 18px; 
+  height: 18px; 
+  background-repeat: no-repeat; 
+  display: inline-block;
+  border-radius: 50%;
+  border: 1px solid #606770;
 }
