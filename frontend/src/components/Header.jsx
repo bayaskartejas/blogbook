@@ -37,7 +37,7 @@ function Header() {
             </svg>
         </div>
 
-        <div className='account-c' onClick={()=>{navigate("/pfp")}}>
+        <div className='account-c' onClick={()=>{navigate("/profile")}}>
             <img src={person} alt="pfp" className='account'/>
         </div>
 

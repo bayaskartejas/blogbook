@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import person from "../assets/person.png"
+import { Caution } from "./Caution";
 export function Post(){
   const [posts, setPosts] = useState([])
   const [savedPosts, setSavedPosts] = useState({})
-  const [isSaved, setIsSaved] = useState(true)
+  // const [isSaved, setIsSaved] = useState(true)
   const [isUserPost, setIsUserPost] = useState(true)
   const [likeLog, setLikeLog] = useState({})
   const [likeCountLog, setLikeCountLog] = useState({})
   const [commentCountLog, setCommentCountLog] = useState({})
+  const [postDeletedlog, setPostDeletedLog] = useState({})
 
   let arr =[];
   useEffect(()=>{
@@ -20,10 +22,13 @@ export function Post(){
     .then((response) => {
       const res = response.data;
       setPosts(res)
-      res[0].map((post)=>{
+      res[0].reverse().map((post)=>{
+        if(post.name === sessionStorage.getItem("username")){
+          setIsUserPost((prevState=>({...prevState, [post._id]:true})))
+        }
+        setPostDeletedLog((prevState=>({...prevState, [post._id]:false})))
         setLikeCountLog((prevState=>({...prevState, [post._id]:post.likes.length})))
         setCommentCountLog((prevState=>({...prevState, [post._id]:post.comments.length})))
-        console.log(post.likes);
         let exist = post.likes.find(ind => ind === sessionStorage.getItem("username"))
         exist ? setLikeLog((prevState=>({...prevState, [post._id]:true}))) : setLikeLog((prevState=>({...prevState, [post._id]:false})))
       })
@@ -48,7 +53,7 @@ export function Post(){
       })
     })
     .catch((e)=>{
-      console.log(e);
+      alert(e);
     })
   },[])
   
@@ -56,6 +61,7 @@ export function Post(){
     <div>
       {posts.map((post) => (
         post.map((thePost)=>(
+          postDeletedlog[thePost._id] ? <></> : 
           <div key={thePost._id} className="post-c" style={{position:"relative", display:"flex", justifyContent:"center"}}>
             <div key={thePost._id} className="post">
                 <div className="pfpandname">
@@ -69,13 +75,26 @@ export function Post(){
 
 
                   <div style={{display:"flex"}}>
-                    <div className="deletebutton" style={{marginRight: "10px"}}>
-                      {isUserPost ?                   
+                    {isUserPost[thePost._id] ?                     
+                    <div className="deletebutton" style={{marginRight: "10px"}} onClick={()=>{
+                      setPostDeletedLog ((prevState=>({...prevState, [thePost._id]:true})))
+                      axios.post("http://localhost:3000/deletePost", {
+                        id : thePost._id
+                      },
+                      {
+                        headers: {
+                          "Authorization": sessionStorage.getItem("token")
+                        }
+                      })
+                      .then((res)=>{console.log(res);})
+                      .catch((res)=>{})
+                    }}>                
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 64 64">
                         <path d="M 28 11 C 26.895 11 26 11.895 26 13 L 26 14 L 13 14 C 11.896 14 11 14.896 11 16 C 11 17.104 11.896 18 13 18 L 14.160156 18 L 16.701172 48.498047 C 16.957172 51.583047 19.585641 54 22.681641 54 L 41.318359 54 C 44.414359 54 47.041828 51.583047 47.298828 48.498047 L 49.839844 18 L 51 18 C 52.104 18 53 17.104 53 16 C 53 14.896 52.104 14 51 14 L 38 14 L 38 13 C 38 11.895 37.105 11 36 11 L 28 11 z M 18.173828 18 L 45.828125 18 L 43.3125 48.166016 C 43.2265 49.194016 42.352313 50 41.320312 50 L 22.681641 50 C 21.648641 50 20.7725 49.194016 20.6875 48.166016 L 18.173828 18 z"></path>
-                        </svg> : 
-                      <></>}
-                    </div>
+                        </svg> 
+                    </div> : 
+                    <></>}
+
 
                     <div className="savebutton">
                       {savedPosts[thePost._id] ?                   
@@ -117,21 +136,21 @@ export function Post(){
                   <div id={thePost._id + "jkl"} className="blogtext">{thePost.blog}</div>
                 </div>
 
-                <div className="line-c" style={{margin:0}}>
-                  <div className="line" style={{width:"470px", margin:0}}></div>
-                </div>
-
-                <div style={{height:"40px", border:"1px solid black", display:"flex", justifyContent:"space-between", alignItems:"center", paddingLeft:"20px", paddingRight:"20px"}}>
-                      <div style={{width:"50px", border:"1px solid black", height:"20px", display:"flex", justifyContent:"space-between", padding:"0px 5px", alignItems:"center"}}>
+                <div style={{height:"40px", display:"flex", justifyContent:"space-between", alignItems:"center", paddingLeft:"20px", paddingRight:"20px"}}>
+                      <div style={{width:"50px", height:"20px", display:"flex", justifyContent:"space-between", padding:"0px 5px", alignItems:"center"}}>
                         <i className="likeicon"></i>
                         <div className="likecount" style={{fontSize:14}}>{likeCountLog[thePost._id]}</div>
                       </div>
-                      <div style={{width:"50px", border:"1px solid black", height:"20px", display:"flex", justifyContent:"space-between", padding:"0px 5px", alignItems:"center"}}>
+                      <div style={{width:"50px", height:"20px", display:"flex", justifyContent:"space-between", padding:"0px 5px", alignItems:"center"}}>
                         <i className="commenticon"></i>
                         <div className="commentcount" style={{fontSize:14}}>{commentCountLog[thePost._id]}</div>
                       </div>
                 </div>
                 
+                <div className="line-c" style={{margin:0}}>
+                  <div className="line" style={{width:"470px", margin:0}}></div>
+                </div>
+
                 <div className="likeandcomment-c">
                   <div className="likeandcomment">
                       {likeLog[thePost._id] ?                     
@@ -145,6 +164,10 @@ export function Post(){
                               }
                             })
                             .then((res)=>{
+                              setLikeCountLog(prevState => ({
+                                ...prevState,
+                                [thePost._id]: (prevState[thePost._id]) - 1
+                              }))
                               setLikeLog((prevState=>({...prevState, [thePost._id]:false})))
                             })
                             .catch((e)=>{alert(e);})
@@ -164,7 +187,12 @@ export function Post(){
                                   "Authorization":sessionStorage.getItem("token")
                                 }
                               })
-                              .then((res)=>{setLikeLog((prevState=>({...prevState, [thePost._id]:true})))})
+                              .then((res)=>{
+                                setLikeCountLog(prevState => ({
+                                  ...prevState,
+                                  [thePost._id]: (prevState[thePost._id]) + 1
+                                }))
+                              setLikeLog((prevState=>({...prevState, [thePost._id]:true})))})
                               .catch((e)=>{alert(e);})
         
                             }}>

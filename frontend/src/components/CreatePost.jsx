@@ -3,7 +3,7 @@ import person from "../assets/person.png"
 import { useRef } from 'react'
 import axios from 'axios'
 
-function CreatePost({name}) {
+function CreatePost() {
   let blogRef = useRef()
   return (
     <div className='createpost-c'>
@@ -12,7 +12,7 @@ function CreatePost({name}) {
 
           <div className='pfpandpost'>
             <img src={person} alt="" className='pfp'/>
-            <input className='postbox' placeholder={`What's on your mind, ${name}?`} ref={blogRef} />
+            <input className='postbox' placeholder={`What's on your mind, ${sessionStorage.getItem("name")}`} ref={blogRef} />
           </div>
 
         <div className='line-c'>
@@ -28,7 +28,7 @@ function CreatePost({name}) {
                 "Authorization": sessionStorage.getItem("token")
               }
             })
-            .then((res)=>{
+            .then(()=>{
               window.location.reload();
             })      
             .catch((e)=>{

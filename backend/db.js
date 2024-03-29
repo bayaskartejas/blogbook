@@ -33,7 +33,6 @@ const userSchema = mongoose.Schema({
     month: Number,
     year: Number,
     gender: String,  
-    posts: Array,
     savedPosts: Array,
     pfp: String
 })

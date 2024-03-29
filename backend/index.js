@@ -36,7 +36,6 @@ app.post("/otp", async (req,res)=>{
                     month: req.body.month,
                     year: req.body.year,
                     gender: req.body.gender,  
-                    posts: [],
                     savedPosts: [],
                     pfp: ""
                 })
@@ -109,13 +108,15 @@ app.post("/signin", async(req,res)=>{
             let user = await User.find({email: req.body.id})
             let username = user[0].username
             let email = req.body.id
-            res.status(200).json({token: token, email: email, username: username})
+            let name = user[0].firstName
+            res.status(200).json({token: token, email: email, username: username, name: name})
         }
         else{
             let user = await User.find({username: req.body.id})
             let email = user[0].email
             let username = req.body.id
-            res.status(200).json({token: token, email: email, username: username})
+            let name = user[0].firstName
+            res.status(200).json({token: token, email: email, username: username, name: name})
         }
     }
     else{
@@ -224,10 +225,14 @@ app.post("/post", authMiddleware, async (req,res)=>{
             comments: [],
             time: time
         })
-        blog.save().then((data)=>{
-            res.status(200).json({
-                data
-            })
+        let postId;
+        blog.save().then(async (data)=>{
+            postId = data._id
+            await User.updateOne(
+                {"email": decoded.id},
+                {$push: {posts: postId}}
+            )
+            res.status(200).json(postId)
         })
     }
     else if(username){  
@@ -246,10 +251,14 @@ app.post("/post", authMiddleware, async (req,res)=>{
             comments: [],
             time: time
         })
-        blog.save().then((data)=>{
-            res.status(200).json({
-                data
-            })
+        let postId;
+        blog.save().then(async (data)=>{
+            postId = data._id
+            await User.updateOne(
+                {"username": decoded.id},
+                {$push: {posts: postId}}
+            )
+            res.status(200).json(postId)
         })
     }
 })
@@ -369,6 +378,22 @@ app.post("/unliked", async (req,res)=>{
         )
         res.status(200).json({response})
     }
+})
+
+app.post("/deletePost", async (req,res)=>{
+    const token = req.headers.authorization
+    let decoded = jwt.decode(token)
+    let postId = req.body.id
+
+    if(zod.string().email().safeParse(decoded.id).success){
+        let response = await Post.delete({_id: postId})
+        res.status(200).json({response})
+    }
+    else{
+        let response = await Post.deleteOne({_id: postId})
+        res.status(200).json({response})
+    }
+
 })
 
 app.listen("3000")

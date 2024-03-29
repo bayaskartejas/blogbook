@@ -1,9 +1,9 @@
 import './App.css'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import { Auth } from './components/Auth'
-import { SignupPopup } from './components/SignupPopup'
 import { Homepage } from './components/Homepage'
 import { UploadPfp } from './components/UploadPfp'
+import { ProfilePage } from './components/ProfilePage'
 
 function App() {
   return <div style={{height:"100%"}}>
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Auth />}></Route>
         <Route path='/home' element={<Homepage />}></Route>
-        <Route path='/pfp' element={<UploadPfp/>}></Route>
+        <Route path='/profile' element={<ProfilePage />}></Route>
       </Routes>   
     </BrowserRouter>
 

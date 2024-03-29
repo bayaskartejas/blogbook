@@ -26,6 +26,7 @@ export function Signin() {
         sessionStorage.setItem("token", res.data.token) 
         sessionStorage.setItem("username", res.data.username)
         sessionStorage.setItem("email", res.data.email)
+        sessionStorage.setItem("name", res.data.name)
       })
       .catch((e)=>{
         alert(e)
