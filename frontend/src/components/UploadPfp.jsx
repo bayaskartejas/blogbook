@@ -1,5 +1,6 @@
 import { useState } from "react";
-export function UploadPfp(){
+import axios from "axios"
+export function UploadPfp({id}){
     const [image, setImage] = useState("")
     function convertToBase64(e){
         console.log(e);
@@ -24,7 +25,15 @@ export function UploadPfp(){
                 <img style={{borderRadius:"50%", height:"250px", width:"250px", border:"2px solid #dadde1", objectFit:"cover", objectPosition:"center center"}} src={image} alt="" />
             </div>
             <div style={{width:"100%", marginTop:"20px", justifyContent:"center", display:"flex"}}>
-                <button style={{width:"30px"}} className="signupbutton">Done</button>
+                <button style={{width:"30px"}} className="signupbutton" onClick={()=>{
+                    axios.post("http://localhost:3000/setPhoto",{
+                        image
+                    },{
+                        headers:{
+                            "Authorization": sessionStorage.getItem("token")
+                        }
+                    })
+                }}>Done</button>
             </div>
         </div>
 }

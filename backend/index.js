@@ -7,6 +7,7 @@ const cors = require("cors")
 const zod = require("zod")
 const otpGenerator = require("otp-generator")
 const nodemailer = require("nodemailer")
+const fs = require("fs")
 
 const app = express()
 app.use(express.json())
@@ -394,6 +395,60 @@ app.post("/deletePost", async (req,res)=>{
         res.status(200).json({response})
     }
 
+})
+
+app.post("/setPhoto", authMiddleware, async(req,res)=>{
+    const token = req.headers.authorization
+    let decoded = jwt.decode(token)
+    let image = req.body.image
+    if(zod.string().email().safeParse(decoded.id).success){
+        await User.find({email:decoded.id})
+        let ans = fs.appendFile('images.json', ' This is my text.', function (err) {
+            if (err) throw err;
+            console.log('Updated!');
+          });
+          res.status(200)
+    }
+    else{
+        await User.find({email:decoded.id})
+        let ans = fs.appendFile('images.json', ' This is my text.', function (err) {
+            if (err) throw err;
+            console.log('Updated!');
+          });
+          res.status(200)
+    }
+})
+
+app.post("/postComment", authMiddleware, async (req,res)=>{
+    const token = req.headers.authorization
+    let decoded = jwt.decode(token)
+    let id = req.body.id
+    let comment = req.body.comment
+    if(zod.string().email().safeParse(decoded.id).success){
+        let user = await User.find({email:decoded.id})
+        let username = user[0].username
+        let commentBody = {
+            username: username,
+            comment: comment
+        }
+        let response = await Post.updateOne(
+            {"_id": id},
+            {$push: {comments: commentBody}}
+        )
+        res.status(200).json({response})
+    }
+    else{
+        let username = decoded.id
+        let commentBody = {
+            username: username,
+            comment: comment
+        }
+        let response = await Post.updateOne(
+            {"_id": id},
+            {$push: {comments: commentBody}}
+        )
+        res.status(200).json({response})
+    }
 })
 
 app.listen("3000")

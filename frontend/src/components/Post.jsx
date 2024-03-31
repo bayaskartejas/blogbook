@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import person from "../assets/person.png"
 import { Caution } from "./Caution";
+import { Comment } from "./Comment";
 export function Post(){
+  let commentRef = useRef()
   const [posts, setPosts] = useState([])
   const [savedPosts, setSavedPosts] = useState({})
   // const [isSaved, setIsSaved] = useState(true)
@@ -11,8 +13,25 @@ export function Post(){
   const [likeCountLog, setLikeCountLog] = useState({})
   const [commentCountLog, setCommentCountLog] = useState({})
   const [postDeletedlog, setPostDeletedLog] = useState({})
+  const [commentClickLog, setCommentClickLog] = useState({})
+  const [comments, setComments] = useState({})
 
   let arr =[];
+
+  useEffect(()=>{
+    axios.get('http://localhost:3000/allposts', {
+      headers: {
+        "Authorization": sessionStorage.getItem("token"),
+      },
+    })
+    .then((response) => {
+      const res = response.data;
+      res[0].reverse().map((post)=>{
+        setComments((prevState => ({ ...prevState, [post._id] : post.comments.reverse()})))
+      })
+    })
+  },[commentCountLog])
+
   useEffect(()=>{
     axios.get('http://localhost:3000/allposts', {
       headers: {
@@ -27,8 +46,10 @@ export function Post(){
           setIsUserPost((prevState=>({...prevState, [post._id]:true})))
         }
         setPostDeletedLog((prevState=>({...prevState, [post._id]:false})))
+        setCommentClickLog((prevState => ({...prevState, [post._id]:false})))
         setLikeCountLog((prevState=>({...prevState, [post._id]:post.likes.length})))
         setCommentCountLog((prevState=>({...prevState, [post._id]:post.comments.length})))
+        setComments((prevState=>({...prevState, [post._id]: post.comments.reverse()})))
         let exist = post.likes.find(ind => ind === sessionStorage.getItem("username"))
         exist ? setLikeLog((prevState=>({...prevState, [post._id]:true}))) : setLikeLog((prevState=>({...prevState, [post._id]:false})))
       })
@@ -46,7 +67,6 @@ export function Post(){
       }
     })
     .then((res)=>{
-      // ans = res.data[0].savedPost
       arr = res.data[0].savedPosts
       arr.map((id)=>{
         setSavedPosts((prevState => ({ ...prevState, [id]: true })))
@@ -86,8 +106,8 @@ export function Post(){
                           "Authorization": sessionStorage.getItem("token")
                         }
                       })
-                      .then((res)=>{console.log(res);})
-                      .catch((res)=>{})
+                      .then((res)=>{console.log(res)})
+                      .catch((e)=>{alert(e)})
                     }}>                
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 64 64">
                         <path d="M 28 11 C 26.895 11 26 11.895 26 13 L 26 14 L 13 14 C 11.896 14 11 14.896 11 16 C 11 17.104 11.896 18 13 18 L 14.160156 18 L 16.701172 48.498047 C 16.957172 51.583047 19.585641 54 22.681641 54 L 41.318359 54 C 44.414359 54 47.041828 51.583047 47.298828 48.498047 L 49.839844 18 L 51 18 C 52.104 18 53 17.104 53 16 C 53 14.896 52.104 14 51 14 L 38 14 L 38 13 C 38 11.895 37.105 11 36 11 L 28 11 z M 18.173828 18 L 45.828125 18 L 43.3125 48.166016 C 43.2265 49.194016 42.352313 50 41.320312 50 L 22.681641 50 C 21.648641 50 20.7725 49.194016 20.6875 48.166016 L 18.173828 18 z"></path>
@@ -201,7 +221,9 @@ export function Post(){
                               <div className="liketextfalse">Like</div>
                             </div>
                           </div>}
-                    <div className="comment" style={{width:"150px", height:"44px", display:"flex", justifyContent:"center", alignItems:"center", borderRadius:"7px"}}>
+                    <div className="comment" style={{width:"150px", height:"44px", display:"flex", justifyContent:"center", alignItems:"center", borderRadius:"7px"}} onClick={()=>{
+                      setCommentClickLog((prevState => ({...prevState, [thePost._id]:!commentClickLog[thePost._id]})))
+                    }}>
                       <i className="commentbutton"></i>
                       <div className="commenttext-c">
                           <div className="commenttext">Comment</div>
@@ -213,15 +235,35 @@ export function Post(){
                 <div className="line-c" style={{margin:0}}>
                   <div className="line" style={{width:"470px", margin:0}}></div>
                 </div>
+                
+                <div style={{backgroundColor:"#dadde1", overflowY:"scroll", maxHeight:"250px"}}>
+                  {
+                  comments[thePost._id].map((cmnt)=>(
+                      commentClickLog[thePost._id]  ? 
+                      <div style={{maxHeight:"300px", width:"100%", paddingTop:"10px", paddingBottom:"5px"}}>  
+                      <Comment username={cmnt.username} comment={cmnt.comment}/></div> : <></>
+                  ))}
+                </div>
 
                 <div className="cmnt-c">
                   <div className="cmnt">
                     <img src={person} alt="" className="pfp" style={{height:"32px", width:"32px", marginTop:"2px"}}></img>
                     <div className="postbox-c" style={{width:"430px", paddingTop:"2px", paddingBottom:"8px"}}>
-                      <input type="text" className="postbox" placeholder="Write a comment..." style={{width:"380px", height:"36.1px", display:"inline-block"}}/> 
-                      <i className="cmnt-send" style={{display:"inline-block"}}></i>
+                      <input id={`${thePost._id}cmnt`}  className="postbox" placeholder="Write a comment..." style={{width:"380px", height:"36.1px", display:"inline-block"}} ref={commentRef}/> 
+                      <i className="cmnt-send" style={{display:"inline-block"}} onClick={()=>{
+                        axios.post("http://localhost:3000/postComment",{
+                          comment : document.getElementById(`${thePost._id}cmnt`).value,
+                          id : thePost._id
+                        },{
+                          headers:{
+                            "Authorization": sessionStorage.getItem("token")
+                          }
+                        })
+                        .then((res)=>{
+                          setCommentCountLog((prevState => ({...prevState, [thePost._id] : commentCountLog[thePost._id]+1})))
+                        })
+                      }}></i>
                     </div>
-
                   </div>
                 </div>
 
