@@ -1,12 +1,12 @@
 import Header from "./Header"
 import CreatePost from "./CreatePost"
-import Sidebar from "./Sidebar"
+import {Sidebar} from "./Sidebar"
 import {Post} from "./Post"
 import HomeFooter from "./HomeFooter"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
-import { Caution } from "./Caution"
+
 
 export function Homepage(){
     const navigate = useNavigate()
@@ -21,7 +21,8 @@ export function Homepage(){
 
     return <div className="homepage">
         <Header></Header>
-        <div className="feed" style={{border:"1px solid black", zIndex:0, position:"absolute", width:"100%"}}>
+        <div className="feed" style={{zIndex:0, position:"absolute", width:"100%"}}>
+                <Sidebar />
                 <CreatePost name={name}></CreatePost>    
                 <Post></Post>               
         </div>
