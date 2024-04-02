@@ -1,7 +1,9 @@
+require('dotenv').config();
+const { DB_URL, SECRET_KEY } = process.env;
 const mongoose = require("mongoose")
 const zod = require("zod")
-const secretKey = "top-secret"
-mongoose.connect("mongodb+srv://tejasbayaskar:Omboss8506%40@cluster0.fhjtmo2.mongodb.net/blogbook")
+const secretKey = SECRET_KEY
+mongoose.connect(DB_URL)
 
 const inputSchema = zod.object({
     firstName: zod.string(),

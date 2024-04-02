@@ -1,5 +1,7 @@
 const express = require("express")
 const {User, inputSchema, secretKey, Post} = require("./db")
+require('dotenv').config();
+const { PASS_WORD } = process.env;
 const  {authMiddleware}  = require("./authMiddleware")
 const jwt = require("jsonwebtoken")
 const bodyParser = require("body-parser")
@@ -46,7 +48,7 @@ app.post("/otp", async (req,res)=>{
                     service: 'gmail',
                     auth: {
                         user: 'blogbookorg@gmail.com',
-                        pass: 'fnfbokmdxulxpoza'
+                        pass: PASS_WORD
                     }
                 });
                 const mailOptions = {

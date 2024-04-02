@@ -1345,6 +1345,16 @@ input:focus{
   display: inline-block;
 }
 
+.icon12 {
+  background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/y6/r/MXx87JcFKzH.png"); 
+  background-position: 0px -120px; 
+  background-size: 30px 450px; 
+  width: 30px; 
+  height: 30px; 
+  background-repeat: no-repeat; 
+  display: inline-block;
+}
+
 .icons:hover {
   cursor: pointer;
   background-color: #cdcdcd;

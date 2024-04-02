@@ -8,7 +8,7 @@ function Header() {
     <div className='header-container'>
 
         <div className='logoandsearch'>
-            <div className='logo-c'>
+            <div className='logo-c' onClick={()=>{navigate("/home")}}>
                 <img src={bwhite} alt="" id='logo'/>
             </div>
             <div className='search-c'>
