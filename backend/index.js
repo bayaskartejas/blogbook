@@ -9,7 +9,6 @@ const cors = require("cors")
 const zod = require("zod")
 const otpGenerator = require("otp-generator")
 const nodemailer = require("nodemailer")
-const fs = require("fs")
 
 const app = express()
 app.use(express.json())
