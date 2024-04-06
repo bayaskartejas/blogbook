@@ -19,7 +19,7 @@ export function Signup({setShowPopup}) {
 
     const handleSubmit = (e)=>{ 
         e.preventDefault();
-        axios.post("http://localhost:3000/otp", {
+        axios.post("https://blogbook-backend.vercel.app/otp", {
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
             username: usernameRef.current.value,
@@ -45,7 +45,7 @@ export function Signup({setShowPopup}) {
             <h3 style={{color: "#606770", fontFamily: "SFProText-Regular, Helvetica, Arial, sans-serif",fontSize: "15px", lineHeight: "24px", paddingLeft:"10px"}}>It is sent to your email address.</h3>
             <form onSubmit={(e)=>{
                 if(otpRef.current.value === newOtp){
-                    axios.post("http://localhost:3000/newuser",{
+                    axios.post("https://blogbook-backend.vercel.app/newuser",{
                         id: "",
                         password: "",
                     })

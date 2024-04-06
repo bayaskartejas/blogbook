@@ -19,7 +19,7 @@ export function Post(){
   let arr =[];
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/allposts', {
+    axios.get('https://blogbook-backend.vercel.app/allposts', {
       headers: {
         "Authorization": sessionStorage.getItem("token"),
       },
@@ -33,7 +33,7 @@ export function Post(){
   },[commentCountLog])
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/allposts', {
+    axios.get('https://blogbook-backend.vercel.app/allposts', {
       headers: {
         "Authorization": sessionStorage.getItem("token"),
       },
@@ -61,7 +61,7 @@ export function Post(){
   },[])
 
   useEffect(()=>{
-    axios.get("http://localhost:3000/isSaved",{
+    axios.get("https://blogbook-backend.vercel.app/isSaved",{
       headers:{
         "Authorization": sessionStorage.getItem("token")
       }
@@ -98,7 +98,7 @@ export function Post(){
                     {isUserPost[thePost._id] ?                     
                     <div className="deletebutton" style={{marginRight: "10px"}} onClick={()=>{
                       setPostDeletedLog ((prevState=>({...prevState, [thePost._id]:true})))
-                      axios.post("http://localhost:3000/deletePost", {
+                      axios.post("https://blogbook-backend.vercel.app/deletePost", {
                         id : thePost._id
                       },
                       {
@@ -119,7 +119,7 @@ export function Post(){
                     <div className="savebutton">
                       {savedPosts[thePost._id] ?                   
                       <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30" onClick={()=>{
-                        axios.post("http://localhost:3000/unsavePost",{
+                        axios.post("https://blogbook-backend.vercel.app/unsavePost",{
                           id: thePost._id
                         },{
                           headers:{
@@ -133,7 +133,7 @@ export function Post(){
                       <path d="M23,27l-8-7l-8,7V5c0-1.105,0.895-2,2-2h12c1.105,0,2,0.895,2,2V27z"></path>
                       </svg> : 
                       <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,256,256" onClick={()=>{
-                        axios.post("http://localhost:3000/savePost",{
+                        axios.post("https://blogbook-backend.vercel.app/savePost",{
                           id: thePost._id
                         },{
                           headers:{
@@ -176,7 +176,7 @@ export function Post(){
                       {likeLog[thePost._id] ?                     
                           <div className="like" style={{width:"150px", height:"44px", display:"flex", justifyContent:"center", alignItems:"center", borderRadius:"7px"}}
                           onClick={()=>{
-                            axios.post("http://localhost:3000/unliked",{
+                            axios.post("https://blogbook-backend.vercel.app/unliked",{
                               id : thePost._id
                             },{
                               headers:{
@@ -200,7 +200,7 @@ export function Post(){
                         </div> : 
                             <div className="like" style={{width:"150px", height:"44px", display:"flex", justifyContent:"center", alignItems:"center", borderRadius:"7px"}}
                             onClick={()=>{
-                              axios.post("http://localhost:3000/liked",{
+                              axios.post("https://blogbook-backend.vercel.app/liked",{
                                 id : thePost._id
                               },{
                                 headers:{
@@ -251,7 +251,7 @@ export function Post(){
                     <div className="postbox-c" style={{width:"430px", paddingTop:"2px", paddingBottom:"8px"}}>
                       <input id={`${thePost._id}cmnt`}  className="postbox" placeholder="Write a comment..." style={{width:"380px", height:"36.1px", display:"inline-block"}} ref={commentRef}/> 
                       <i className="cmnt-send" style={{display:"inline-block"}} onClick={()=>{
-                        axios.post("http://localhost:3000/postComment",{
+                        axios.post("https://blogbook-backend.vercel.app/postComment",{
                           comment : document.getElementById(`${thePost._id}cmnt`).value,
                           id : thePost._id
                         },{
