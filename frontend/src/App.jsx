@@ -7,7 +7,7 @@ import { Homepage } from './components/Homepage'
 import { TechnoStream } from './components/TechnoStream'
 
 function App() {
-  return <div style={{height:"100%"}}>
+  return <div className='w-full h-full absolute top-0 bg-blog-400'>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Auth />}></Route>

@@ -1,46 +1,18 @@
 export function Footer(){
-    return <div className="footer-container">
-        <div className="footer">
-            <div className="footerIn">
-                <div className="creditfooter">
-                    <div>
-                        <div className="credits">This Project is created by :</div> <div className="credits">Tejas Bayaskar</div>
+    return <div className="md:flex md:fixed md:bottom-0 md:h-28 md:w-full md:bg-white md:pt-4 hidden">
+        <div className="w-full h-full fixed flex justify-center">
+            <div className="justify-center flex text-center w-full text-zinc-600 text-xs tracking-wide">
+                <div className="">
+                    <div className="">
+                        <div className="credits leading-4">This Project is created by :</div> <div className="credits">Tejas Bayaskar</div>
                         <div >
-                        <div  className="credits">These are the dependencies of my Project:</div>
-                        <div className="credits">Express | Cors | Jsonwebtoken | Body-parser | Mongoose | Zod | React | React-router-dom | Nodemailer | Otp-generator</div>
+                        <div  className="credits leading-4">These are the dependencies of my Project:</div>
+                        <div className="credits leading-4">Express | Cors | Tailwind | Jsonwebtoken | Body-parser | Mongoose | Zod | React | React-router-dom | Nodemailer | Otp-generator</div>
                         </div>
+                        <div> Blogbook © 2024</div>
                     </div>
 
                 </div>
-
-                <div className="linediv" style={{marginTop:"8px"}}>
-                    <div id="line"></div>
-                </div>
-
-                <div className="links">
-                    <div style={{paddingBottom:"10px"}}> Blogbook © 2024</div>
-                    <div className="credits">Link to my Social Handles</div>
-                        <div className="socials">
-                        <div className="credits">
-                        Instagram :
-                        <a href="">Tejas</a>
-                        </div>
-                        <div className="credits" style={{marginLeft:"20px"}}>
-                        LinkedIn :
-                        <a href="">Tejas</a>
-                        </div>
-                        <div className="credits" style={{marginLeft:"20px"}}>
-                        Twitter :
-                        <a href="">Tejas</a>
-                        </div> 
-                        <div className="credits" style={{marginLeft:"20px"}}>
-                        GitHub :
-                        <a href="">Tejas</a>
-                        </div>                             
-                        </div>
-
-                </div>
-                <div className="endcredits"></div>
             </div>
         </div>
     </div>
