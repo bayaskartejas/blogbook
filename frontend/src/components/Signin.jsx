@@ -17,7 +17,7 @@ export function Signin() {
       };
     const handleSignin = (e) => {
       e.preventDefault();
-      axios.post("https://blogbook-backend.vercel.app/signin", {
+      axios.post("http://localhost:3000/signin", {
           id: idRef.current.value,
           password: passwordRef.current.value,
       })
@@ -46,12 +46,12 @@ export function Signin() {
         </form>
 
         {showPopup && (
-        <div className="popupscreen">
-          <div className="popup-overlay" onClick={handleOverlayClick}></div>
-          <div className="popup">
+        <div className="h-full w-full flex justify-center items-center z-20 absolute top-0 left-0">
+          <div className="w-full h-full bg-blog-1000 z-30 flex justify-center items-center" onClick={handleOverlayClick}></div>
+          <div className="flex absolute justify-center items-center transform bg-white rounded-lg shadow-xl border z-50 w-max h-max">
             <div className="popup-content">
               <Signup setShowPopup={setShowPopup}/>
-            </div>
+            </div>  
           </div>
         </div>
       )}

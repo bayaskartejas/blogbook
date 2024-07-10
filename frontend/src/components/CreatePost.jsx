@@ -21,7 +21,7 @@ function CreatePost() {
 
         <div className='postbutton-c'>
           <button className='postbutton' onClick={()=>{
-            axios.post("https://blogbook-backend.vercel.app/post", {
+            axios.post("http://localhost:3000/post", {
               blog: blogRef.current.value
             },{
               headers: {

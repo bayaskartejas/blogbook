@@ -19,7 +19,7 @@ export function Signup({setShowPopup}) {
 
     const handleSubmit = (e)=>{ 
         e.preventDefault();
-        axios.post("https://blogbook-backend.vercel.app/otp", {
+        axios.post("http://localhost:3000/otp", {
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
             username: usernameRef.current.value,
@@ -41,11 +41,11 @@ export function Signup({setShowPopup}) {
 
     return <div>
         {otpPage ? <>
-            <h1 style={{fontWeight: "600", fontSize:"20px", lineHeight:"38px", paddingLeft:"10px"}}>Enter the OTP:</h1>
+            <h1 className="font-semibold text-xl pl-3" style={{fontWeight: "600", fontSize:"20px", lineHeight:"38px", paddingLeft:"10px"}}>Enter the OTP:</h1>
             <h3 style={{color: "#606770", fontFamily: "SFProText-Regular, Helvetica, Arial, sans-serif",fontSize: "15px", lineHeight: "24px", paddingLeft:"10px"}}>It is sent to your email address.</h3>
             <form onSubmit={(e)=>{
                 if(otpRef.current.value === newOtp){
-                    axios.post("https://blogbook-backend.vercel.app/newuser",{
+                    axios.post("http://localhost:3000/newuser",{
                         id: "",
                         password: "",
                     })
@@ -66,21 +66,31 @@ export function Signup({setShowPopup}) {
                 <button type="submit" className="signupbutton">Submit</button>
             </form>
         </> : <div className="signupcard">
-        <h1 style={{fontWeight: "600", fontSize:"32px", lineHeight:"38px", paddingLeft:"10px"}}>Sign Up</h1>
-        <h3 style={{color: "#606770", fontFamily: "SFProText-Regular, Helvetica, Arial, sans-serif",fontSize: "15px", lineHeight: "24px", paddingLeft:"10px"}}>It's quick and easy.</h3>
-        <img onClick={()=>{
-            setShowPopup(false)
-        }} className="closeIcon" src="https://static.xx.fbcdn.net/rsrc.php/v3/yO/r/zgulV2zGm8t.png" alt width={24} height={24}/>
-        <div className="signup-line"></div>
-        <form className="signup" onSubmit={handleSubmit} action="">
-            <input type="text" id="fName" placeholder="First name" ref={firstNameRef} required/> 
-            <input type="text" id="surname" placeholder="Surname" ref={lastNameRef} required/><br />
-            <input type="text" id="uname" placeholder="New Username" ref={usernameRef} required/><br />
-            <input type="text" id="email" placeholder="Email" ref={emailRef} required/><br />
-            <input type="password" id="pword"placeholder="New Password" ref={passwordRef} required/><br />
-            <h3 className="dob">Date of birth</h3>
+        <div className="justify-between flex h-max w-full items-center md:pl-4 pl-3 md:mt-3 mt-2">
+            <h1 style={{fontWeight: "600", fontSize:"32px", lineHeight:"38px"}}>Sign Up</h1>
+            <img onClick={()=>{
+             setShowPopup(false)
+        }} className="w-7 h-7 mr-3 cursor-pointer" src="http://static.xx.fbcdn.net/rsrc.php/v3/yO/r/zgulV2zGm8t.png" alt width={24} height={24}/>
+        </div>
+        <h3 className="md:ml-4 ml-3" style={{color: "#606770", fontFamily: "SFProText-Regular, Helvetica, Arial, sans-serif",fontSize: "15px", lineHeight: "24px"}}>It's quick and easy.</h3>
+        <div className="md:m-2 m-1 items-center border border-blog-700 flex text-center"></div>
+        <form className="md:pl-4 pl-3 md:pr-3 pr-2 md:pt-1 pt-0.5" onSubmit={handleSubmit} action="">
+            <div className="w-full flex justify-between md:mb-2 mb-1">
+                <input className="md:h-10 h-9 mr-2.5 rounded-md border text-black border-blog-700 bg-blog-1100 p-3 md:w-48 w-32" type="text" id="fName" placeholder="First name" ref={firstNameRef} required/> 
+                <input className="md:h-10 h-9 rounded-md border text-black border-blog-700 bg-blog-1100 p-3 md:w-48 w-32" type="text" id="surname" placeholder="Surname" ref={lastNameRef} required/><br />    
+            </div>
+            <div className="flex w-full justify-center border md:mb-2 mb-1">
+                <input className="p-3 border h-10 rounded-md border-blog-700 bg-blog-1100 w-full" type="text" id="uname" placeholder="New Username" ref={usernameRef} required/><br />
+            </div>
+            <div className="flex w-full justify-center border md:mb-2 mb-1">
+                <input className="p-3 border h-10 rounded-md border-blog-700 bg-blog-1100 w-full" type="text" id="email" placeholder="Email" ref={emailRef} required/><br />
+            </div>
+            <div className="flex w-full justify-center border md:mb-2 mb-1">
+                <input className="p-3 border h-10 rounded-md border-blog-700 bg-blog-1100 w-full" type="password" id="pword"placeholder="New Password" ref={passwordRef} required/><br />
+            </div>
+            <h3 className="text-blog-1200 text-sm font-normal leading-5 my-1 ml-0.5">Date of birth</h3>
             <div style={{marginBottom:"10px"}}>
-            <select aria-label="Day" name="day" id="day" ref={dayRef} required>
+            <select className="md:pl-3 pl-1 md:w-32 w-20 md:mr-1 mr-3 md:h-9 h-8 rounded-md bg-white border-2 border-blog-700" aria-label="Day" name="day" id="day" ref={dayRef} required>
                 <option value="Day">Day</option>
                 <option value="01">01</option>
                 <option value="02">02</option>
@@ -114,7 +124,7 @@ export function Signup({setShowPopup}) {
                 <option value="30">30</option>
                 <option value="31">31</option>
             </select>
-            <select aria-label="Month" name="month" id="month" ref={monthRef} required>
+            <select className="md:pl-3 pl-1 w-20 h-8 md:w-32 md:mr-1 mr-3 md:h-9 rounded-md bg-white border-2 border-blog-700" aria-label="Month" name="month" id="month" ref={monthRef} required>
                 <option value="Month">Month</option>
                 <option value="01">January</option>
                 <option value="02">February</option>
@@ -129,7 +139,7 @@ export function Signup({setShowPopup}) {
                 <option value="11">November</option>
                 <option value="12">December</option>
             </select>
-            <select aria-label="Year" name="year" id="year" ref={yearRef} required>
+            <select className="md:pl-3 pl-1 w-20 h-8 md:w-32 md:h-9 rounded-md bg-white border-2 border-blog-700" aria-label="Year" name="year" id="year" ref={yearRef} required>
                 <option value="Year">Year</option>
                 <option value="2012">2012</option>
                 <option value="2011">2011</option>
@@ -246,19 +256,19 @@ export function Signup({setShowPopup}) {
             </select>
             </div>
 
-            <h3 className="dob">Gender</h3>
-            <div className="gender" datatype="radio" ref={genderRef} required>
-            <div id="malediv">
+            <h3 className="text-blog-1200 text-sm font-normal leading-5 my-1 ml-0.5">Gender</h3>
+            <div className="flex justify-center" datatype="radio" ref={genderRef} required>
+            <div className="border-2 border-blog-700 rounded-md bg-white p-2 md:w-48 w-32 flex justify-between mr-3" id="malediv">
                 <label htmlFor="male" className="label">Male</label>
                 <input type="radio" name="gender" id="male" required/>                
             </div>
-            <div id="femalediv">
+            <div className="border-2 border-blog-700 rounded-md bg-white p-2 md:w-48 w-32 flex justify-between" id="femalediv">
                 <label htmlFor="female" className="label">Female</label>
                 <input type="radio" name="gender" id="female" required/>                
             </div>                
             </div>
-            <div className="signupbutton-container">
-                <button className="signupbutton"  type="submit">Sign Up</button>
+            <div className="flex justify-center my-5">
+                <button className="bg-blog-800 text-white font-semibold rounded-md h-9 w-48 text-lg hover:bg-blog-900"  type="submit">Sign Up</button>
             </div>
 
 
